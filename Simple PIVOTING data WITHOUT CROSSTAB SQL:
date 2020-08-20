@@ -1,0 +1,6 @@
+SELECT p.name, g.COUNT AS good, o.COUNT AS ok, b.COUNT AS bad FROM products p
+JOIN (SELECT product_id, COUNT(*) AS "count" FROM details WHERE detail='good' GROUP BY product_id) g ON (p.id=g.product_id)
+JOIN (SELECT product_id, COUNT(*) AS "count" FROM details WHERE detail='ok' GROUP BY product_id) o ON (p.id=o.product_id)
+JOIN (SELECT product_id, COUNT(*) AS "count" FROM details WHERE detail='bad' GROUP BY product_id) b ON (p.id=b.product_id)
+GROUP BY name, g.count, o.count, b.count
+order by name;
